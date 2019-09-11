@@ -30,7 +30,6 @@ public class KustantajaRepositorio {
         if (p == null) {
             log.info("Ei kustantajaa idllä " + id);
         }
-//        em.detach(p);
         Query q = em.createQuery("SELECT k FROM Kirja k WHERE k.kustantaja = :p");
         q.setParameter("p", p);
         List<Kirja> tulos = q.getResultList();

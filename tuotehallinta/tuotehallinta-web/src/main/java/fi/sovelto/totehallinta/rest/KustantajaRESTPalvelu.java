@@ -67,6 +67,7 @@ public class KustantajaRESTPalvelu {
         try {
             validoiKustantaja(kustantaja);
             ejb.luoKustantaja(kustantaja);
+//            repo.uusiKustantaja(kustantaja);
             builder = Response.ok(kustantaja); // location headerin asetus...
         } catch (ConstraintViolationException e) {
             builder = rakennaViolationResponse(e.getConstraintViolations());

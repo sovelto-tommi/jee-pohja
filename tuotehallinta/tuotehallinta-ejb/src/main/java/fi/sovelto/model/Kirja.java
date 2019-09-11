@@ -31,7 +31,6 @@ public class Kirja {
             joinColumns = @JoinColumn(name = "kirja_id"),
             inverseJoinColumns = @JoinColumn(name = "kirjailija_id")
     )
-//    @JsonIgnore @XmlTransient
     private List<Kirjailija> kirjailijat;
 
     @ManyToOne(/*cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}*/)

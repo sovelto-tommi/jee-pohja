@@ -1,6 +1,5 @@
 package fi.sovelto.model;
 
-//import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,7 +9,6 @@ public class Kustantaja {
     private long id;
     private String nimi;
     private String website;
-//    @JsonbTransient
     @OneToMany(mappedBy = "kustantaja", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     private List<Kirja> kirjat;
 
