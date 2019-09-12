@@ -1,16 +1,12 @@
 package fi.sovelto.cimcorpdemo.model;
 
-//import javax.json.bind.annotation.JsonbTransient;
-
+// Ei enää kuten Java EE-projektissa oli:import org.codehaus.jackson.annotate.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 @Entity

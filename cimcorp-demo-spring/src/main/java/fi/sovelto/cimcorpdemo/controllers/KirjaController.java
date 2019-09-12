@@ -27,19 +27,20 @@ public class KirjaController {
     @GetMapping("/{id}")
     public ResponseEntity<?> yksiKirja(@PathVariable(name = "id") long id) {
         Optional<Kirja> optKirja = kirjaRepositorio.findById(id);
-        if (optKirja.isEmpty()) {
+        if (optKirja.isEmpty()) { // Vaatii JDK 11, vanhemmilla toimii !optKirja.isPresent()
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(optKirja.get());
     }
     @PostMapping("")
-    public ResponseEntity<?> uusiAihe(@RequestBody Kirja kirja) {
+    public ResponseEntity<?> uusiKirja(@RequestBody Kirja kirja) {
         Kirja talletettu = kirjaRepositorio.save(kirja);
         if (kirja==null)
             return ResponseEntity.noContent().build();
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(talletettu.getId()).toUri();
-        return ResponseEntity.created(location).body(talletettu);
+        var kaikkiTiedotAjantasalla = kirjaRepositorio.findById(talletettu.getId());
+        return ResponseEntity.created(location).body(kaikkiTiedotAjantasalla.orElseThrow(RuntimeException::new));
     }
 }
