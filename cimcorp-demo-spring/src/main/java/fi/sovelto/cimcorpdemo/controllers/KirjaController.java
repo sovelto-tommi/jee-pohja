@@ -2,6 +2,8 @@ package fi.sovelto.cimcorpdemo.controllers;
 
 import fi.sovelto.cimcorpdemo.data.KirjaRepositorio;
 import fi.sovelto.cimcorpdemo.model.Kirja;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -42,5 +44,11 @@ public class KirjaController {
                 .buildAndExpand(talletettu.getId()).toUri();
         var kaikkiTiedotAjantasalla = kirjaRepositorio.findById(talletettu.getId());
         return ResponseEntity.created(location).body(kaikkiTiedotAjantasalla.orElseThrow(RuntimeException::new));
+    }
+
+    @GetMapping("/poistaminut")
+    public Page<Kirja> sivutetut(Pageable pageable) {
+        Page<Kirja> sivu = kirjaRepositorio.findAll(pageable);
+        return sivu;
     }
 }
