@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+.KirjaLista {
+  text-align: justify;
+}
+
+.KirjaLista tr:nth-of-type(2n) td {
+  background-color: darkgray;
+}
+.KirjaLista tr:nth-of-type(2n+1) td {
+  background-color: gray;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
