@@ -1,7 +1,10 @@
 package fi.sovelto.cimcorpdemo.controllers;
 
+import fi.sovelto.cimcorpdemo.KirjaEvent;
 import fi.sovelto.cimcorpdemo.data.KirjaRepositorio;
 import fi.sovelto.cimcorpdemo.model.Kirja;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +14,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/kirjat")
 public class KirjaController {
     private KirjaRepositorio kirjaRepositorio;
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+    private static final Logger logger = Logger.getLogger("KirjaWebSocketHandler");
 
     public KirjaController(KirjaRepositorio kirjaRepositorio) {
         this.kirjaRepositorio = kirjaRepositorio;
@@ -43,6 +50,9 @@ public class KirjaController {
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(talletettu.getId()).toUri();
         var kaikkiTiedotAjantasalla = kirjaRepositorio.findById(talletettu.getId());
+        KirjaEvent event = new KirjaEvent(this, "Luotu kirja id:llä " + talletettu.getId());
+        applicationEventPublisher.publishEvent(event);
+        logger.info("Tapahtuma julkaistu");
         return ResponseEntity.created(location).body(kaikkiTiedotAjantasalla.orElseThrow(RuntimeException::new));
     }
 
