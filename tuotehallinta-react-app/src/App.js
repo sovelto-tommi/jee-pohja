@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Oma from "./oma";
-import KirjaLista from "./components/KirjaLista";
+import KirjaKomponentti from "./components/KirjaKomponentti";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
           <Oma/>
           <hr/>
-          <KirjaLista/>
+          <KirjaKomponentti/>
       </header>
     </div>
   );

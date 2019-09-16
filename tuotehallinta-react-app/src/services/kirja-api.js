@@ -1,9 +1,20 @@
 
-const url = '/api/kirjat';
+// const booturl = '/api/kirjat';
+const wildflyurl = '/tuotehallinta-web/api/kirjat';
+const url = wildflyurl;
 
-function haeKirjat() {
+export function haeKirjat() {
     return fetch(url)
-        .then(resp=>resp.json());
+        .then(resp => {
+            return resp.json()
+        });
 }
 
-module.exports = {haeKirjat}
+export function uusikirja(kirja) {
+    return fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(kirja)
+    })
+}
+

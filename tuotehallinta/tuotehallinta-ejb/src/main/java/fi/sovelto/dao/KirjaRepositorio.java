@@ -19,7 +19,6 @@ public class KirjaRepositorio {
     @Inject
     Logger log;
 
-
     public Kirja findById(Long id) {
         return em.find(Kirja.class, id);
     }
@@ -40,4 +39,7 @@ public class KirjaRepositorio {
         return tulos;
     }
 
+    public void uusiKirja(Kirja kirja) {
+        em.persist(kirja);
+    }
 }

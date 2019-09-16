@@ -14,7 +14,7 @@ import java.util.List;
 @XmlRootElement
 @Entity
 public class Kirja {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
     private String nimi;
@@ -25,7 +25,7 @@ public class Kirja {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Calendar julkaistu;
     private String editio;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "kirja_kirjailija",
             joinColumns = @JoinColumn(name = "kirja_id"),
@@ -33,7 +33,7 @@ public class Kirja {
     )
     private List<Kirjailija> kirjailijat;
 
-    @ManyToOne(/*cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}*/)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name="kustantaja")
     private Kustantaja kustantaja;
 
