@@ -80,4 +80,14 @@ public class KirjaRESTPalvelu {
 
     }
 
+    @DELETE
+    @Path("/{id:[0-9]+}")
+    public Response poistaKirja(@PathParam("id") long id) {
+        Kirja poistettu = ejb.poistaKirja(id);
+        if (poistettu == null) {
+            return Response.status(404).build();
+        }
+        return Response.noContent().build();
+    }
+
 }

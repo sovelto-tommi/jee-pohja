@@ -50,10 +50,9 @@ public class WebIlmoittelija {
                 }
             }
         });
-        log.info("Viestitetty kaikille: " + message);
     }
-    public void onUusiKirjaLuotu(@Observes(notifyObserver = Reception.IF_EXISTS) Kirja event) throws IOException{
-        broadcast(new Message("Luotu kirja id:llä: " + event.getId()));
+    public void onKirjaListaMuuttunut(@Observes(notifyObserver = Reception.IF_EXISTS) Kirja event) throws IOException{
+        broadcast(new Message("Luotu/poistettu kirja id:llä: " + event.getId()));
         log.info("Broadcast tehty");
     }
 

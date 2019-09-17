@@ -30,6 +30,13 @@ public class KirjaPalvelu {
         kirjaEvent.fire(kirja);
         log.info("Laukaistu..");
     }
+    public Kirja poistaKirja(long id) {
+        Kirja poistettu = kirjarepo.poistaKirja(id);
+        if (poistettu!=null) {
+            kirjaEvent.fire(poistettu);
+        }
+        return poistettu;
+    }
     public void luoKustantaja(Kustantaja kustantaja) {
         kustantajarepo.uusiKustantaja(kustantaja);
     }

@@ -64,3 +64,20 @@ Kaikki seuraavat kun Wildfly on käynnissä
  
  Katso myös docs-hakemisto
  
+ # Käytetyt APIt
+ 
+ Tässä Java EE -palvelinsovelluksessa on käytössä seuraavia Java EE API osia:
+ 
+ - EJB
+     1. EJB
+     2. JPA - Entityluokkia ja repository, tietokantana H2
+     3. Events - laukaisu
+     4. CDI
+ - Web
+     1. JAX-RS - Kontrolleri
+     2. Events - kuuntelu
+     2. Web Socket - Uuden kirjan luomisesta ilmoitus kaikille asiakaille
+     3. Validation
+     4. CDI
+ 
+ Katso myös React sovellus, joka toimii asiakkaana tälle palvelimelle

@@ -4,6 +4,16 @@
 
 .KirjaLista {
   text-align: justify;
+  color: white;
+  padding: 1em;
+}
+
+.KirjaLista table {
+  width: 100%;
+}
+
+.KirjaLista td {
+  padding: 1pt 2pt;
 }
 
 .KirjaLista tr:nth-of-type(2n) td {

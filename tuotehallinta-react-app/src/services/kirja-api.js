@@ -1,7 +1,5 @@
 
-// const booturl = '/api/kirjat';
-const wildflyurl = '/tuotehallinta-web/api/kirjat';
-const url = wildflyurl;
+const url = '/tuotehallinta-web/api/kirjat';
 
 export function haeKirjat() {
     return fetch(url)
@@ -18,3 +16,7 @@ export function uusikirja(kirja) {
     })
 }
 
+export function poistaKirja(id) {
+    const durl = `${url}/${id}`;
+    return fetch(durl, {method: 'DELETE'});
+}

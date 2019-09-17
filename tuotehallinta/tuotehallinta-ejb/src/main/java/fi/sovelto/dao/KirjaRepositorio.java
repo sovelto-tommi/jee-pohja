@@ -42,4 +42,12 @@ public class KirjaRepositorio {
     public void uusiKirja(Kirja kirja) {
         em.persist(kirja);
     }
+
+    public Kirja poistaKirja(long id) {
+        Kirja poistettava = em.find(Kirja.class, id);
+        if (poistettava!=null) {
+            em.remove(poistettava);
+        }
+        return poistettava;
+    }
 }

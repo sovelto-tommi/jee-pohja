@@ -52,8 +52,18 @@ public class KirjaController {
         var kaikkiTiedotAjantasalla = kirjaRepositorio.findById(talletettu.getId());
         KirjaEvent event = new KirjaEvent(this, "Luotu kirja id:llä " + talletettu.getId());
         applicationEventPublisher.publishEvent(event);
-        logger.info("Tapahtuma julkaistu");
         return ResponseEntity.created(location).body(kaikkiTiedotAjantasalla.orElseThrow(RuntimeException::new));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> poistaKirja(@PathVariable(name="id") long id) {
+        Optional<Kirja> optKirja = kirjaRepositorio.findById(id);
+        if (optKirja.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        kirjaRepositorio.deleteById(id);
+        KirjaEvent event = new KirjaEvent(this, "Poistettu kirja id:llä " + id);
+        applicationEventPublisher.publishEvent(event);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/poistaminut")

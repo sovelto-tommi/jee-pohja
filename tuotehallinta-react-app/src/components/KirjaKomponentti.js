@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Kirja from './Kirja';
-import {haeKirjat, uusikirja} from '../services/kirja-api';
+import {haeKirjat, poistaKirja, uusikirja} from '../services/kirja-api';
 import KirjaLomake from "./KirjaLomake";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
@@ -31,10 +31,20 @@ export default class KirjaKomponentti extends Component {
             this.haeKirjat();
         })
     }
+    poistaKirja = (id) => {
+        poistaKirja(id).then(resp => {
+            if (resp.status === 204) {
+                this.haeKirjat();
+            } else {
+                console.error("Virhe poistettaessa", `${resp.status}: ${resp.statusText}`)
+            }
+        })
+    }
+
     render() {
         return (
             <div>
-                <KirjaLista kirjat={this.state.kirjat}/>
+                <KirjaLista kirjat={this.state.kirjat} poistaKirja={this.poistaKirja}/>
                 <hr/>
                 <KirjaLomake vanhemmanFunktio={this.uusiKirja}/>
             </div>
@@ -45,7 +55,7 @@ export default class KirjaKomponentti extends Component {
 class KirjaLista extends Component {
     render() {
         const kirjat = this.props.kirjat.map(kirja => {
-            return <Kirja kirja={kirja} key={kirja.id}/>;
+            return <Kirja kirja={kirja} poistaKirja={this.props.poistaKirja} key={kirja.id}/>;
         })
         return (
             <div className='KirjaLista'>
